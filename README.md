@@ -70,3 +70,12 @@ This is the "brain" of the operation, orchestrated by LangChain.
 ## Repository File Contents
 
 This repository is organized into the main project and the individual learning modules.
+
+
+## Acknowledgements & Reference
+
+This project and all the foundational concepts in the `Chains`, `Parsers`, `Retriever`, etc., directories were learned from and inspired by the following YouTube playlist by **Krish Naik**.
+
+* **Reference**: [LangChain Project Playlist](https://www.youtube.com/watch?v=-xSJA8-o6Eg&list=PLKnIA16_RmvaTbihpo4MtzVm4XOQa0ER0)
+
+The **RAGTube** application, its specific implementation, custom UI/UX, and animated RAG diagram were designed and developed by me, Abhinav Kumar.
