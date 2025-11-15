@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>RAGTube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon2.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen p-4 dark">
+
+    <div class="bg-white w-full max-w-3xl h-[85vh] rounded-xl shadow-2xl flex flex-col overflow-hidden border border-gray-200">
+        
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">RAGTube</h1>
+            <button id="clear-video-btn" class="hidden text-sm text-gray-500 hover:text-red-500 transition-colors">
+                Clear Video
+            </button>
+        </div>
+
+        <div id="video-info-bar" class="hidden p-3 border-b border-gray-200 bg-gray-50">
+            <div class="flex items-center space-x-3">
+                <img id="video-info-img" src="" alt="Thumbnail" class="" referrerpolicy="no-referrer">
+                <div class="flex-1 min-w-0"> 
+                    <p id="video-info-status" class="text-sm text-green-600 font-medium">Video Loaded:</p>
+                    <p id="video-info-title" class="text-base font-bold text-gray-800 truncate">Unknown Title</p>
+                    <p id="video-info-channel" class="text-sm text-gray-600 truncate">Unknown Channel</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 min-h-0"> 
+            <div id="welcome-screen" class="flex flex-col justify-center items-center h-full p-6 text-center">
+                <div class="p-4 bg-gray-200 dark:bg-gray-700 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="">
+                      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm.53 5.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 1 0 1.06 1.06l1.72-1.72v5.69a.75.75 0 0 0 1.5 0v-5.69l1.72 1.72a.75.75 0 1 0 1.06-1.06l-3-3Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-semibold welcome-text-primary mb-2">You’re in.</h2>
+                <p class="text-lg welcome-text-secondary">
+                    Please paste a YouTube URL below to get started.
+                </p>
+            </div>
+            <div id="chat-container" class="hidden h-full p-6 space-y-4 overflow-y-auto">
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-200 bg-gray-50">
+            <form id="input-form" class="flex items-center space-x-3">
+                <input type="text" id="message-input" placeholder="Enter a YouTube URL..."
+                       class="flex-1 focus:outline-none transition-shadow"
+                       autocomplete="off">
+                <button type="submit" id="send-button"
+                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all">
+                    <span class="relative flex items-center justify-center"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.941l18-9a.75.75 0 0 0 0-1.882l-18-9Z" />
+                        </svg>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div> <button id="watermark-button" class="developer-watermark">
+        Developed by Abhinav Kumar
+    </button>
+
+
+    <div id="developer-modal" class="modal-overlay hidden">
+        <div class="modal-window">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <h3 class="modal-title">RAG System Architecture</h3>
+            <div class="rag-diagram-container">
+    
+    <div class="diagram-item" style="animation-delay: 0.2s;">
+        <i class="fas fa-file-pdf"></i>
+        <span class="diagram-text">YouTube Transcripts</span>
+    </div>
+
+    <div class="diagram-connector" style="animation-delay: 0.4s;">
+        <div class="arrow-right"></div>
+    </div>
+
+    <div class="diagram-item" style="animation-delay: 0.6s;">
+        <i class="fas fa-braille"></i>
+        <span class="diagram-text">Embeddings</span>
+    </div>
+
+    <div class="diagram-connector" style="animation-delay: 0.8s;">
+        <div class="arrow-right"></div>
+    </div>
+
+    <div class="diagram-item" style="animation-delay: 1.0s;">
+        <i class="fas fa-database"></i>
+        <span class="diagram-text">Vector Store</span>
+    </div>
+
+    <div class="diagram-connector" style="animation-delay: 1.2s;">
+        <div class="arrow-right"></div>
+    </div>
+
+    <div class="diagram-item" style="animation-delay: 1.4s;">
+        <i class="fas fa-search"></i>
+        <span class="diagram-text">Semantic Search</span>
+    </div>
+
+    <div class="diagram-connector" style="animation-delay: 1.6s;">
+        <div class="arrow-right"></div>
+    </div>
+
+    <div class="diagram-item" style="animation-delay: 1.8s;">
+        <i class="fas fa-list-ol"></i>
+        <span class="diagram-text">Ranked Results</span>
+    </div>
+
+    <div class="diagram-connector" style="animation-delay: 2.0s;">
+        <div class="arrow-right"></div>
+    </div>
+
+    <div class="diagram-item" style="animation-delay: 2.2s;">
+        <i class="fas fa-brain"></i>
+        <span class="diagram-text">LLM</span>
+    </div>
+
+    <div class="diagram-connector" style="animation-delay: 2.4s;">
+        <div class="arrow-right"></div>
+    </div>
+
+    <div class="diagram-item" style="animation-delay: 2.6s;">
+        <i class="fas fa-comment-dots"></i>
+        <span class="diagram-text">Answer</span>
+    </div>
+</div>
+
+            
+
+            
+            </div>
+    </div> <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
